@@ -59,8 +59,10 @@ export default function CityProductPage({ params }) {
   // Prix effectif :
   // - Pièces seules → dépend de la variante choisie (light/heavy)
   // - Sinon → prix du modèle
-  const effectivePrice         = supportsPiecesVariant ? piecesVariant.price         : selectedModel.price;
-  const effectiveOriginalPrice = supportsPiecesVariant ? piecesVariant.originalPrice : selectedModel.originalPrice;
+const effectivePrice = supportsPiecesVariant
+  ? selectedModel.price + (piecesVariant.surcharge || 0)
+  : selectedModel.price;
+const effectiveOriginalPrice = selectedModel.originalPrice;
 
   // Pour le mini-aperçu (ChessBoardPreview), le plateau utilise toujours noir & blanc classique
   // (le plateau réel est en bois — il n'est jamais coloré)
