@@ -121,7 +121,7 @@ export default function CityProductPage({ params }) {
             <div className="relative overflow-hidden group" style={{
               background: 'linear-gradient(145deg, #161616, #0e0e0e)',
               border: '1px solid rgba(201,168,76,0.12)',
-              aspectRatio: '1',
+              aspectRatio: '16/9',
             }}>
               <Image
                 key={currentImage}
