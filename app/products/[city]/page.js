@@ -121,7 +121,7 @@ export default function CityProductPage({ params }) {
             <div className="relative overflow-hidden group" style={{
               background: 'linear-gradient(145deg, #161616, #0e0e0e)',
               border: '1px solid rgba(201,168,76,0.12)',
-              aspectRatio: '16/9',
+              aspectRatio: '2500/1800',
             }}>
               <Image
                 key={currentImage}
@@ -129,7 +129,7 @@ export default function CityProductPage({ params }) {
                 alt={`Échiquier ${city.name} – image ${galleryIndex + 1}`}
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
-                style={{ objectFit: 'cover', cursor: 'pointer' }}
+                style={{ objectFit: 'contain', cursor: 'pointer' }}
                 priority={galleryIndex === 0}
                 onClick={() => {
                   const modal = document.createElement('div');
