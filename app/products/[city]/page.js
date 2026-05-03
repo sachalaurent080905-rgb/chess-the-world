@@ -129,8 +129,58 @@ export default function CityProductPage({ params }) {
                 alt={`Échiquier ${city.name} – image ${galleryIndex + 1}`}
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
-                style={{ objectFit: 'cover' }}
+                style={{ objectFit: 'cover', cursor: 'pointer' }}
                 priority={galleryIndex === 0}
+                onClick={() => {
+                  const modal = document.createElement('div');
+                  modal.style.cssText = `position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.95);z-index:9999;display:flex;align-items:center;justify-content:center;`;
+                  
+                  let currentIdx = galleryIndex;
+                  
+                  const container = document.createElement('div');
+                  container.style.cssText = `position:relative;width:100%;height:100%;display:flex;align-items:center;justify-content:center;`;
+                  
+                  const img = document.createElement('img');
+                  img.src = gallery[currentIdx];
+                  img.style.cssText = `max-width:90%;max-height:90%;object-fit:contain;cursor:pointer;`;
+                  
+                  const prevBtn = document.createElement('button');
+                  prevBtn.innerHTML = '❮';
+                  prevBtn.style.cssText = `position:absolute;left:20px;top:50%;transform:translateY(-50%);background:rgba(10,10,10,0.7);color:white;border:1px solid rgba(201,168,76,0.3);padding:10px 15px;cursor:pointer;font-size:20px;z-index:10000;`;
+                  prevBtn.onclick = (e) => {
+                    e.stopPropagation();
+                    currentIdx = (currentIdx - 1 + gallery.length) % gallery.length;
+                    img.src = gallery[currentIdx];
+                  };
+                  
+                  const nextBtn = document.createElement('button');
+                  nextBtn.innerHTML = '❯';
+                  nextBtn.style.cssText = `position:absolute;right:20px;top:50%;transform:translateY(-50%);background:rgba(10,10,10,0.7);color:white;border:1px solid rgba(201,168,76,0.3);padding:10px 15px;cursor:pointer;font-size:20px;z-index:10000;`;
+                  nextBtn.onclick = (e) => {
+                    e.stopPropagation();
+                    currentIdx = (currentIdx + 1) % gallery.length;
+                    img.src = gallery[currentIdx];
+                  };
+                  
+                  const closeBtn = document.createElement('button');
+                  closeBtn.innerHTML = '✕';
+                  closeBtn.style.cssText = `position:absolute;top:20px;right:20px;background:rgba(10,10,10,0.7);color:white;border:1px solid rgba(201,168,76,0.3);padding:8px 12px;cursor:pointer;font-size:18px;z-index:10000;`;
+                  closeBtn.onclick = () => modal.remove();
+                  
+                  const counter = document.createElement('div');
+                  counter.innerHTML = `${currentIdx + 1} / ${gallery.length}`;
+                  counter.style.cssText = `position:absolute;bottom:20px;left:50%;transform:translateX(-50%);background:rgba(10,10,10,0.7);color:white;padding:8px 12px;border:1px solid rgba(201,168,76,0.3);font-size:14px;`;
+                  
+                  container.appendChild(img);
+                  container.appendChild(prevBtn);
+                  container.appendChild(nextBtn);
+                  container.appendChild(closeBtn);
+                  container.appendChild(counter);
+                  
+                  modal.appendChild(container);
+                  modal.onclick = () => modal.remove();
+                  document.body.appendChild(modal);
+                }}
               />
 
               {/* Flag + badges */}
