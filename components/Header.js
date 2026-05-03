@@ -54,7 +54,7 @@ export default function Header() {
             {freeShipping ? (
               <>Livraison gratuite ✓</>
             ) : (
-              <>Livraison gratuite à partir de 100€ (reste {formatPrice(100 - totalPrice)})</>
+              <>Livraison gratuite à partir de 100€</>
             )}
           </span>
         </div>
