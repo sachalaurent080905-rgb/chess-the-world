@@ -274,7 +274,7 @@ function ModelsComparison() {
     { label: 'Finition plateau',    pieces: '—',                         classic: 'Vernis satiné',                   premium: 'Gravure laser haute précision' },
     { label: 'Dimensions plateau',  pieces: '—',                         classic: '30 \u00d7 30 cm',                 premium: '36 \u00d7 36 cm' },
     { label: 'Pièces',              pieces: 'Légères ou lourdes',        classic: '3D PETG légères',                 premium: '3D PETG lourdes premium' },
-    { label: 'Couleurs au choix',   pieces: '✓ (10 couleurs × 2)',       classic: '✓ (10 couleurs × 2)',             premium: '✓ (10 couleurs × 2)' },
+    { label: 'Couleurs au choix',   pieces: '✓ (6 couleurs × 2)',       classic: '✓ (6 couleurs × 2)',              premium: '✓ (6 couleurs × 2)' },
     { label: 'Coffret',             pieces: 'Boîte de protection',        classic: 'Boîte recyclable',                premium: 'Coffret velours noir' },
     { label: 'Certificat',          pieces: '—',                          classic: '—',                                premium: 'Gravé, numéroté' },
     { label: 'Limited Edition',     pieces: '—',                          classic: '—',                                premium: '✓' },
