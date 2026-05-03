@@ -121,7 +121,7 @@ Détails : ${form.details || 'Aucun'}
                 <div className="flex justify-between"><span>Pièces uniquement</span><span className="text-ivory">à partir de 30€</span></div>
                 <div className="flex justify-between"><span>Classique personnalisé</span><span className="text-ivory">à partir de 60€</span></div>
                 <div className="flex justify-between"><span>Premium personnalisé</span><span className="text-ivory">à partir de 110€</span></div>
-                <div className="flex justify-between"><span>Modélisation nouvelle ville (si possibilité avec monuments)</span><span className="text-ivory">100€</span></div>
+                <div className="flex justify-between"><span>Modélisation nouvelle ville (si possibilite)</span><span className="text-ivory">100€</span></div>
               </div>
             </div>
           </div>
