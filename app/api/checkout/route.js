@@ -11,26 +11,23 @@ export async function POST(req) {
 
     const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
 
-    // Calculate shipping
     const subtotal = items.reduce((acc, item) => acc + item.price * item.quantity, 0);
     const freeShipping = subtotal >= 150;
 
-    // Build Stripe line items
     const lineItems = buildLineItems(items);
 
-    // Add shipping if applicable
+    // Ajouter les frais de livraison UNIQUEMENT si pas gratuit
     if (!freeShipping) {
       lineItems.push({
         price_data: {
           currency: 'eur',
-          product_data: { name: 'Livraison internationale' },
-          unit_amount: 1200, // 12€ in cents
+          product_data: { name: 'Frais de livraison' },
+          unit_amount: 1000, // 10€ pour l'Europe
         },
         quantity: 1,
       });
     }
 
-    // Build order metadata
     const orderSummary = items
       .map(
         (i) =>
@@ -38,14 +35,13 @@ export async function POST(req) {
       )
       .join(' | ');
 
-    // Create Stripe checkout session
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       line_items: lineItems,
       mode: 'payment',
       customer_email: customerInfo?.email || undefined,
       metadata: {
-        order_summary: orderSummary.substring(0, 500), // Stripe metadata limit
+        order_summary: orderSummary.substring(0, 500),
         customer_name: `${customerInfo?.firstName || ''} ${customerInfo?.lastName || ''}`.trim(),
         shipping_address: `${customerInfo?.address || ''}, ${customerInfo?.zip || ''} ${customerInfo?.city || ''}, ${customerInfo?.country || ''}`,
       },
@@ -60,15 +56,12 @@ export async function POST(req) {
       success_url: `${appUrl}/cart/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${appUrl}/cart`,
       locale: 'fr',
-      // Collect billing address
       billing_address_collection: 'auto',
-      // Custom branding
       custom_text: {
         submit: {
           message: 'Fabriqué à la main en France · Livraison sous 5-10 jours ouvrés',
         },
       },
-      // Allow promotion codes
       allow_promotion_codes: true,
     });
 

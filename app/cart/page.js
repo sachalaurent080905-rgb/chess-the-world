@@ -109,7 +109,9 @@ export default function CartPage() {
                   </div>
                   <div className="flex justify-between text-smoke">
                     <span>Livraison</span>
-                    <span style={{ color: '#6ECC8A' }}>Offerte</span>
+                    <span style={{ color: totalPrice >= 150 ? '#6ECC8A' : 'inherit' }}>
+                      {totalPrice >= 150 ? 'Offerte' : 'À déterminer'}
+                    </span>
                   </div>
                   <div className="flex justify-between text-smoke">
                     <span>Taxes</span>
@@ -121,9 +123,16 @@ export default function CartPage() {
 
                 <div className="flex justify-between items-center">
                   <span className="text-ivory font-body text-sm" style={{ fontWeight: 500 }}>Total</span>
-                  <span className="font-display text-3xl" style={{ fontFamily: 'var(--font-cormorant)', color: 'var(--color-gold)' }}>
-                    {formatPrice(totalPrice)}
-                  </span>
+                  <div className="flex flex-col items-end">
+                    <span className="font-display text-3xl" style={{ fontFamily: 'var(--font-cormorant)', color: 'var(--color-gold)' }}>
+                      {formatPrice(totalPrice)}
+                    </span>
+                    {totalPrice < 150 && (
+                      <span className="text-xs text-smoke mt-1" style={{ fontFamily: 'var(--font-body)' }}>
+                        + frais de livraison
+                      </span>
+                    )}
+                  </div>
                 </div>
 
                 {/* Checkout button */}
