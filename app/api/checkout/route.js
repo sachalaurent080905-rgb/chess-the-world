@@ -12,27 +12,23 @@ export async function POST(req) {
     const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
 
     const subtotal = items.reduce((acc, item) => acc + item.price * item.quantity, 0);
-    const freeShipping = subtotal >= 150;
+    const freeShipping = subtotal >= 100;
 
     const lineItems = buildLineItems(items);
 
-    // Ajouter les frais de livraison UNIQUEMENT si pas gratuit
     if (!freeShipping) {
       lineItems.push({
         price_data: {
           currency: 'eur',
           product_data: { name: 'Frais de livraison' },
-          unit_amount: 1000, // 10€ pour l'Europe
+          unit_amount: 699,
         },
         quantity: 1,
       });
     }
 
     const orderSummary = items
-      .map(
-        (i) =>
-          `${i.cityName} ${i.modelName} (${i.color1Label}/${i.color2Label}) ×${i.quantity}`
-      )
+      .map((i) => `${i.cityName} ${i.modelName} (${i.color1Label}/${i.color2Label}) ×${i.quantity}`)
       .join(' | ');
 
     const session = await stripe.checkout.sessions.create({
